@@ -1,41 +1,17 @@
 import Link from "next/link";
 
-import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
-import { IoReorderThreeOutline } from "react-icons/io5";
-import { BsBell } from "react-icons/bs";
-import { FiEdit } from "react-icons/fi";
 import { CiSearch } from "react-icons/ci";
 import { HiChevronDown } from "react-icons/hi";
+import MainLayout from "./_layout/MainLayout";
 
 export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
   const session = await getServerAuthSession();
 
   return (
-    <div className="flex h-screen w-full flex-col">
-      <header className="border-b[1px] flex h-20 w-full flex-row items-center justify-between border-b border-gray-200 bg-white px-5 py-5 shadow-sm">
-        <div>
-          <IoReorderThreeOutline className="text-3xl text-gray-600" />
-        </div>
-        <div className=" text-xl font-bold">Freedium</div>
-        <div className="flex items-center space-x-4">
-          <div>
-            <BsBell className="text-xl text-gray-600" />
-          </div>
-          <div>
-            <div className="h-5 w-5 rounded-full bg-gray-600" />
-          </div>
-          <button className="flex items-center space-x-4 rounded border border-gray-200 px-4  py-2.5  hover:border-gray-900 hover:text-gray-900">
-            <div>Write</div>
-            <div>
-              <FiEdit />
-            </div>
-          </button>
-        </div>
-      </header>
-
+    <MainLayout>
       <section className="grid h-full w-full grid-cols-12 place-items-center">
         <main className="col-span-8 h-full w-full border-r  border-gray-300 p-5">
           <div className="flex w-full space-y-4 pb-5 ">
@@ -204,6 +180,6 @@ export default async function Home() {
           </div>
         </aside>
       </section>
-    </div>
+    </MainLayout>
   );
 }
